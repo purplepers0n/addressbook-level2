@@ -6,7 +6,7 @@ public class PostalCode {
 
     public static final String EXAMPLE = "123456";
     public static final String MESSAGE_POSTAL_CODE_CONSTRAINTS = "Address postal code should only contain numbers";
-    public static final String POSTAL_CODE_VALIDATION_REGEX = "\\d+";
+    public static final String POSTAL_CODE_VALIDATION_REGEX = ".+";
 
     public final String value;
 

@@ -5,7 +5,7 @@ import seedu.addressbook.data.exception.IllegalValueException;
 public class Street {
     public static final String EXAMPLE = "some street";
     public static final String MESSAGE_STREET_CONSTRAINTS = "Address street should only contain letters and numbers";
-    public static final String STREET_VALIDATION_REGEX = "[\\w ]+";
+    public static final String STREET_VALIDATION_REGEX = ".+";
 
     public final String value;
 

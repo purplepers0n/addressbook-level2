@@ -35,7 +35,9 @@ public class Address {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.block = new Block(splitAddress[0]);
-        this.street = new Street(splitAddress[1]);
+        if (numParts > 1) {
+            this.street = new Street(splitAddress[1]);
+        }
         if(numParts > 2) {
             this.unit = new Unit(splitAddress[2]);
         }
@@ -55,22 +57,6 @@ public class Address {
     @Override
     public String toString() {
         return value;
-    }
-
-    public Block getBlock() {
-        return block;
-    }
-
-    public Street getStreet() {
-        return street;
-    }
-
-    public Unit getUnit() {
-        return unit;
-    }
-
-    public PostalCode getPostalCode() {
-        return postalCode;
     }
 
     @Override
