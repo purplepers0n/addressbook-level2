@@ -1,10 +1,6 @@
 package seedu.addressbook.commands;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import seedu.addressbook.data.person.ReadOnlyPerson;
 
@@ -17,7 +13,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-sensitive) and displays them as a list with index numbers.\n"
+            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
@@ -48,13 +44,31 @@ public class FindCommand extends Command {
      */
     private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
         final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
+        Set<String> lowerCaseKeywords = changeToLowerCase(keywords);
         for (ReadOnlyPerson person : addressBook.getAllPersons()) {
             final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
+            Set<String> lowerCaseWordsInName = changeToLowerCase(wordsInName);
+            if (!Collections.disjoint(lowerCaseWordsInName, lowerCaseKeywords)) {
                 matchedPersons.add(person);
             }
         }
         return matchedPersons;
     }
 
+    /**
+     * Changes all words to lower case to remove issue of case sensitivity when comparing strings
+     *
+     * @param words set of strings
+     * @return set of the same strings in lower case
+     */
+    private static Set<String> changeToLowerCase(Set<String> words){
+
+        Set<String> lowerCaseWords = new HashSet<>();
+        Iterator<String> it = words.iterator();
+
+        while (it.hasNext()){
+            lowerCaseWords.add(it.next().toLowerCase());
+        }
+        return lowerCaseWords;
+    }
 }
